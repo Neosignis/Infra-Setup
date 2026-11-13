@@ -46,8 +46,18 @@ jobs:
         env:
           DEV_API_TOKEN: ci-only-not-a-deployment-secret-xxxxxxxxxxxxxxxx
         run: |
-          docker compose up -d
-          trap 'docker compose down' EXIT
+          cleanup() {
+            status=$?
+            trap - EXIT
+            if [ "$status" -ne 0 ]; then
+              docker compose ps -a || true
+              docker compose logs --no-color --tail=200 api inference || true
+            fi
+            docker compose down || true
+            exit "$status"
+          }
+          trap cleanup EXIT
+          docker compose up -d --build
           python scripts/smoke_compose.py
   terraform:
     runs-on: ubuntu-latest
