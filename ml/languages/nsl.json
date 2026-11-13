@@ -1,0 +1,10 @@
+{
+  "language": "nsi",
+  "name": "Nigerian Sign Language",
+  "status": "disabled_awaiting_independent_local_data_and_review",
+  "recognition_model": null,
+  "render_provider": null,
+  "supported_domains": [],
+  "evaluation_report": null,
+  "approval": null
+}

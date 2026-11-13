@@ -1,0 +1,17 @@
+{
+  "status": "not_agreed_not_evaluated",
+  "language": "ase",
+  "scope": null,
+  "model_sha256": null,
+  "independent_signer_count_min": null,
+  "heldout_utterance_count_min": null,
+  "semantic_correctness_min": null,
+  "out_of_scope_false_accept_rate_max": null,
+  "coverage_min": null,
+  "p95_sign_end_to_final_text_ms_max": null,
+  "deaf_comprehension_min": null,
+  "reviewers": [],
+  "split_policy": "signer-disjoint; no recording or near-duplicate leakage",
+  "required_error_slices": ["negation", "questions", "names", "numbers", "handedness", "occlusion", "lighting", "camera_orientation", "non_manual_markers"],
+  "release_allowed": false
+}

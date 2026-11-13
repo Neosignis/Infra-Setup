@@ -1,0 +1,2 @@
+region            = "eu-west-1"
+state_bucket_name = "REPLACE-neosignis-state-ACCOUNT-eu-west-1"

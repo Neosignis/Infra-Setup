@@ -1,0 +1,10 @@
+{
+  "language": "ase",
+  "name": "American Sign Language",
+  "status": "awaiting_model_data_and_evaluation",
+  "recognition_model": null,
+  "render_provider": null,
+  "supported_domains": [],
+  "evaluation_report": null,
+  "approval": null
+}

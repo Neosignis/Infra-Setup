@@ -1,0 +1,12 @@
+.git
+.venv
+.env*
+!.env.example
+**/__pycache__
+infra
+docs
+tests
+validation-logs
+*.tfstate*
+*.pem
+*.key

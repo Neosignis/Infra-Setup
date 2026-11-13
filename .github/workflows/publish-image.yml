@@ -1,0 +1,41 @@
+name: Publish foundation image
+on:
+  workflow_dispatch:
+    inputs:
+      component:
+        description: Foundation image repository
+        type: choice
+        options: [api, worker]
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: publish-${{ inputs.component }}
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: development
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4
+        with:
+          role-to-assume: ${{ vars.AWS_PUBLISH_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - uses: aws-actions/amazon-ecr-login@03f1aad4c6c7ffd436567f42f9384779290529bd # v2
+        id: login
+      - name: Build and push commit-tagged image
+        env:
+          REGISTRY: ${{ steps.login.outputs.registry }}
+          REPOSITORY: ${{ inputs.component == 'api' && vars.ECR_API_REPOSITORY || vars.ECR_WORKER_REPOSITORY }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          test -n "$REGISTRY"
+          test -n "$REPOSITORY"
+          docker build --platform linux/amd64 -t "$REGISTRY/$REPOSITORY:$COMMIT_SHA" .
+          docker push "$REGISTRY/$REPOSITORY:$COMMIT_SHA"
+          aws ecr describe-images --repository-name "$REPOSITORY" --image-ids imageTag="$COMMIT_SHA" --query 'imageDetails[0].imageDigest' --output text

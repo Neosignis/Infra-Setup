@@ -1,0 +1,20 @@
+region = "eu-west-1" # Provisional; confirm before apply.
+# Foundation only by default: no NAT, ALB, RDS, API tasks or GPU hosts.
+enable_runtime  = false
+enable_database = false
+enable_gpu      = false
+
+# Set before opting into runtime:
+# certificate_arn   = "arn:aws:acm:REGION:ACCOUNT:certificate/ID"
+# api_image         = "ACCOUNT.dkr.ecr.REGION.amazonaws.com/neosignis-dev/api@sha256:DIGEST"
+# allowed_api_cidrs = ["YOUR-PUBLIC-IP/32"]
+
+# Set before opting into GPU pool (zero tasks until explicitly increased):
+# worker_image      = "ACCOUNT.dkr.ecr.REGION.amazonaws.com/neosignis-dev/worker@sha256:DIGEST"
+# gpu_ami_id        = "ami-REVIEWED-ECS-GPU-AMI"
+gpu_desired_tasks = 0
+gpu_max_instances = 1
+
+# Optional alert; account-wide budget, not a hard cap. Replace proposed amount.
+# budget_alert_email = "cloud-owner@example.com"
+# monthly_budget_usd = 100

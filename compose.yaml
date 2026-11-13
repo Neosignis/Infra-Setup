@@ -1,0 +1,38 @@
+services:
+  api:
+    build: .
+    environment:
+      APP_ENV: local
+      AUTH_MODE: dev_token
+      DEV_API_TOKEN: ${DEV_API_TOKEN:?Set a random development token in .env}
+      INFERENCE_URL: http://inference:8001
+    ports:
+      - "127.0.0.1:8000:8000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on:
+      inference:
+        condition: service_started
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz', timeout=2)"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+  inference:
+    build: .
+    command: [python, -m, uvicorn, "neosignis.worker:app", --host, "0.0.0.0", --port, "8001", --no-access-log]
+    environment:
+      ENGINE_PROVIDER: ${ENGINE_PROVIDER:-}
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8001/healthz', timeout=2)"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
