@@ -33,7 +33,8 @@ test('records simulated camera video, reviews it and exports verifiable bytes', 
   await expect.poll(async () => parseFloat(await page.locator('.recording-clock').innerText())).toBeGreaterThanOrEqual(1);
   await page.getByRole('button', { name: 'Finish recording', exact: true }).click();
   await expect(page.locator('.clip-total')).toHaveText('01');
-  await page.getByRole('button', { name: /Session clips/ }).click();
+  await expect(page.getByRole('heading', { name: 'Review your session.' })).toBeVisible();
+  await expect(page.getByText('Recording saved in this tab. Play it below, or')).toBeVisible();
   const playback = page.getByLabel('Recorded signing clip', { exact: true });
   await expect(playback).toBeVisible();
   await expect.poll(() => playback.evaluate(element => (element as HTMLVideoElement).readyState)).toBeGreaterThanOrEqual(1);
@@ -90,4 +91,28 @@ test('has no horizontal overflow on a narrow screen', async ({ page }, testInfo)
   expect(instruction!.x + instruction!.width).toBeLessThanOrEqual(stage!.x + stage!.width);
   expect(stage!.x + stage!.width).toBeLessThanOrEqual(390);
   await page.screenshot({ path: testInfo.outputPath('mobile.png'), fullPage: true });
+});
+
+
+test('camera preview explains missing setup and never silently starts recording', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Enable camera', exact: true }).click();
+  const start = page.getByRole('button', { name: 'Start recording', exact: true });
+  await expect(start).toBeEnabled();
+  await expect(page.locator('#capture-status')).toContainText('Preview only');
+  await start.click();
+  await expect(page.getByRole('alert')).toContainText('Before recording: Enter a signer code');
+  await expect(page.getByLabel('Signer code', { exact: true })).toBeFocused();
+  await page.getByLabel('Signer code', { exact: true }).fill('test-signer');
+  await start.click();
+  await expect(page.getByLabel('Recording permission reference', { exact: true })).toBeFocused();
+  await page.getByLabel('Recording permission reference', { exact: true }).fill('test-permission');
+  await start.click();
+  await expect(page.getByRole('checkbox')).toBeFocused();
+  await expect(page.getByRole('alert')).toContainText('Confirm the signer');
+  await expect(page.locator('.clip-total')).toHaveText('00');
+  await expect(page.getByRole('button', { name: 'Finish recording', exact: true })).toHaveCount(0);
+  await page.getByRole('checkbox').check();
+  await expect(page.locator('#capture-status')).toHaveText('Preview only. Select Start recording to save a clip.');
 });

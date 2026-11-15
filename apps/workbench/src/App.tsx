@@ -49,6 +49,9 @@ export default function App() {
   const [engine, setEngine] = useState<EngineState>({ state: 'checking' });
   const [details, setDetails] = useState<RecordingDetails>({ signerId: '', permissionReference: '', meaningId: 'E01', acknowledged: false });
   const video = useRef<HTMLVideoElement>(null);
+  const signerInput = useRef<HTMLInputElement>(null);
+  const permissionInput = useRef<HTMLInputElement>(null);
+  const agreementInput = useRef<HTMLInputElement>(null);
   const stream = useRef<MediaStream | null>(null);
   const session = useRef<RecordingSession | null>(null);
   const cameraGeneration = useRef(0);
@@ -123,7 +126,13 @@ export default function App() {
   }
 
   function startRecording() {
-    if (invalidDetails || !stream.current || !canAddClip(clipsRef.current) || busy) return;
+    if (!stream.current || !canAddClip(clipsRef.current) || busy) return;
+    if (invalidDetails) {
+      setMessage(`Before recording: ${invalidDetails}`);
+      const missing = [signerInput.current, permissionInput.current, agreementInput.current].find(input => input && !input.validity.valid);
+      missing?.focus();
+      return;
+    }
     setMessage(''); setNotice(''); setElapsed(0);
     const captureDetails = { ...details };
     const settings = stream.current.getVideoTracks()[0]?.getSettings() || {};
@@ -145,7 +154,8 @@ export default function App() {
           clipsRef.current = [...clipsRef.current, clip];
           setClips(clipsRef.current);
           setSelectedId(id);
-          setNotice('Clip captured. Review it in Session clips, then download it when ready.');
+          setView('clips');
+          setNotice('Recording saved in this tab. Play it below to review, then download the session ZIP.');
         }).catch(error => {
           if (mounted.current) setMessage(error instanceof Error ? error.message : 'The clip could not be prepared.');
         }).finally(() => { if (mounted.current) setProcessing(false); });
@@ -226,8 +236,20 @@ export default function App() {
                   {recording && <span className="recording-clock"><span />{(elapsed / 1000).toFixed(1)} / 10.0s</span>}
                 </div>
                 <div className="camera-toolbar"><span><Icon name="shield" size={16} /> Preview is never uploaded</span>{camera !== 'off' && <button className="text-button" onClick={stopCamera}>{camera === 'requesting' ? 'Cancel request' : 'Turn camera off'}</button>}<span className="toolbar-caption">Visual framing guide</span></div>
+                <div className="capture-controls">
+                <div className="record-action"><div><span className="eyebrow">ONE COMPLETE UTTERANCE</span><p>Start, sign naturally, then finish.<br /><span>Recording stops automatically at {MAX_DURATION_MS / 1000} seconds.</span></p></div>
+                  {recording ? <button className="button stop" onClick={() => session.current?.stop()}><span className="stop-shape" /> Finish recording</button> : <button className="button primary" aria-describedby="capture-status" onClick={startRecording} disabled={camera !== 'on' || busy || !canAddClip(clips)}><span className="record-shape" />{processing ? 'Preparing clip…' : 'Start recording'}</button>}
+                </div>
+                <p id="capture-status" className="capture-status" role="status">{recording ? 'Recording now. Sign, then select Finish recording.' : processing ? 'Preparing your recording…' : camera !== 'on' ? 'Enable the camera, complete the session details, then start recording.' : invalidDetails ? `Preview only — nothing is being recorded. ${invalidDetails}` : !canAddClip(clips) ? 'Session full. Download and discard clips to record more.' : 'Preview only. Select Start recording to save a clip.'}</p>
+                </div>
               </div>
 
+            <div className="panel setup-panel"><div className="section-heading"><div><span className="step-number">01</span><h2>Set up this session</h2></div></div><p className="panel-description">Use a code for the signer. Keep names and contact details out of this workbench.</p>
+              <label className="field-label" htmlFor="signer">Signer code</label><input ref={signerInput} required pattern="[A-Za-z0-9_\-]{1,64}" id="signer" value={details.signerId} maxLength={64} placeholder="e.g. signer-001" autoComplete="off" disabled={busy} onChange={event => setDetails({ ...details, signerId: event.target.value })} />
+              <label className="field-label" htmlFor="permission">Recording permission reference</label><input ref={permissionInput} required pattern="[A-Za-z0-9_.\-]{1,100}" id="permission" value={details.permissionReference} maxLength={100} placeholder="e.g. consent-001" autoComplete="off" disabled={busy} onChange={event => setDetails({ ...details, permissionReference: event.target.value })} />
+              <label className="consent-check"><input ref={agreementInput} id="recording-permission" required type="checkbox" checked={details.acknowledged} disabled={busy} onChange={event => setDetails({ ...details, acknowledged: event.target.checked })} /><span>The signer has agreed to this local evaluation recording.</span></label>
+              <div className="session-facts"><span>Language<strong>ASL</strong></span><span>Audio<strong>Off</strong></span><span>Dataset split<strong>Unassigned</strong></span></div>
+            </div>
               <div className="panel recording-panel">
                 <div className="section-heading"><div><span className="step-number">02</span><h2>Choose the meaning</h2></div><span className="muted-tag">Proposed labels · review pending</span></div>
                 <label className="field-label" htmlFor="meaning">What will the signer express?</label>
@@ -236,26 +258,16 @@ export default function App() {
                   <option value={UNKNOWN_ID}>Unsupported meaning / no signing</option>
                 </select>
                 <p className="field-help">These are meaning labels, not word-by-word instructions. A fluent ASL reviewer must validate each example.</p>
-                <div className="record-action"><div><span className="eyebrow">ONE COMPLETE UTTERANCE</span><p>Start, sign naturally, then finish.<br /><span>Recording stops automatically at {MAX_DURATION_MS / 1000} seconds.</span></p></div>
-                  {recording ? <button className="button stop" onClick={() => session.current?.stop()}><span className="stop-shape" /> Finish recording</button> : <button className="button primary" onClick={startRecording} disabled={camera !== 'on' || !!invalidDetails || busy || !canAddClip(clips)}><span className="record-shape" />{processing ? 'Preparing clip…' : 'Start recording'}</button>}
-                </div>
-                {invalidDetails ? <p className="record-hint">{invalidDetails}</p> : camera !== 'on' ? <p className="record-hint">Enable your camera to start recording.</p> : !canAddClip(clips) ? <p className="record-hint">Download and discard clips to make room for more recordings.</p> : <p className="record-hint ready"><Icon name="check" size={14} /> Ready for a local recording</p>}
               </div>
             </> : <div className="panel review-panel">
               <div className="panel-topline"><span className="panel-title"><Icon name="clips" size={18} /> Clip review</span><span className="muted-tag">{clips.length} / {MAX_CLIPS} local clips</span></div>
-              {selected ? <><div className="playback-stage"><video controls playsInline preload="metadata" src={selected.url} aria-label="Recorded signing clip" /></div><div className="clip-detail"><div><span className="eyebrow">{selected.details.meaningId.toUpperCase()} · REVIEW PENDING</span><h2>{meaningLabel(selected.details.meaningId)}</h2><p>Signer {selected.details.signerId} · {formatDuration(selected.durationMs)} · {(selected.blob.size / 1024).toFixed(0)} KB</p></div><button className="text-button danger" disabled={busy || exporting} onClick={() => removeClip(selected.id)}>Discard clip</button></div><div className="clip-list">{clips.map((clip, index) => <button key={clip.id} className={`clip-row ${selected.id === clip.id ? 'selected' : ''}`} onClick={() => setSelectedId(clip.id)}><span className="clip-index">{String(index + 1).padStart(2, '0')}</span><span><strong>{meaningLabel(clip.details.meaningId)}</strong><small>{clip.details.signerId} · {clip.details.meaningId.toUpperCase()}</small></span><span>{formatDuration(clip.durationMs)}</span><Icon name="clips" size={18} /></button>)}</div></> : <div className="review-empty"><Icon name="clips" size={42} /><h2>Your first clip starts an exchange.</h2><p>Record a signing sample, then return here<br />to review it before downloading.</p><button className="button primary" onClick={() => setView('capture')}>Go to camera <Icon name="arrow" size={17} /></button></div>}
+              {selected ? <><div className="saved-clip-banner" role="status"><Icon name="check" size={18} /> Recording saved in this tab. Play it below, or <button className="text-button" onClick={() => setView('capture')}>Record another clip</button>.</div><div className="playback-stage"><video controls playsInline preload="metadata" src={selected.url} aria-label="Recorded signing clip" /></div><div className="clip-detail"><div><span className="eyebrow">{selected.details.meaningId.toUpperCase()} · REVIEW PENDING</span><h2>{meaningLabel(selected.details.meaningId)}</h2><p>Signer {selected.details.signerId} · {formatDuration(selected.durationMs)} · {(selected.blob.size / 1024).toFixed(0)} KB</p></div><button className="text-button danger" disabled={busy || exporting} onClick={() => removeClip(selected.id)}>Discard clip</button></div><div className="clip-list">{clips.map((clip, index) => <button key={clip.id} className={`clip-row ${selected.id === clip.id ? 'selected' : ''}`} onClick={() => setSelectedId(clip.id)}><span className="clip-index">{String(index + 1).padStart(2, '0')}</span><span><strong>{meaningLabel(clip.details.meaningId)}</strong><small>{clip.details.signerId} · {clip.details.meaningId.toUpperCase()}</small></span><span>{formatDuration(clip.durationMs)}</span><Icon name="clips" size={18} /></button>)}</div></> : <div className="review-empty"><Icon name="clips" size={42} /><h2>Your first clip starts an exchange.</h2><p>Record a signing sample, then return here<br />to review it before downloading.</p><button className="button primary" onClick={() => setView('capture')}>Go to camera <Icon name="arrow" size={17} /></button></div>}
             </div>}
 
             <div className="privacy-note"><Icon name="shield" size={19} /><p><strong>Local by default.</strong> Video stays in this tab until you download it. Closing or refreshing the page clears the session. Recording permission is separate from training, publishing or likeness rights.</p></div>
           </section>
 
-          <aside className="details-column" aria-label="Session settings">
-            <div className="panel setup-panel"><div className="section-heading"><div><span className="step-number">01</span><h2>Set up this session</h2></div></div><p className="panel-description">Use a code for the signer. Keep names and contact details out of this workbench.</p>
-              <label className="field-label" htmlFor="signer">Signer code</label><input id="signer" value={details.signerId} maxLength={64} placeholder="e.g. signer-001" autoComplete="off" disabled={busy} onChange={event => setDetails({ ...details, signerId: event.target.value })} />
-              <label className="field-label" htmlFor="permission">Recording permission reference</label><input id="permission" value={details.permissionReference} maxLength={100} placeholder="e.g. consent-001" autoComplete="off" disabled={busy} onChange={event => setDetails({ ...details, permissionReference: event.target.value })} />
-              <label className="consent-check"><input type="checkbox" checked={details.acknowledged} disabled={busy} onChange={event => setDetails({ ...details, acknowledged: event.target.checked })} /><span>The signer has agreed to this local evaluation recording.</span></label>
-              <div className="session-facts"><span>Language<strong>ASL</strong></span><span>Audio<strong>Off</strong></span><span>Dataset split<strong>Unassigned</strong></span></div>
-            </div>
+          <aside className="details-column" aria-label="Engine and export">
             <div className="panel engine-panel"><div className="engine-heading"><span className="panel-title">Engine connection</span><button className="icon-button" aria-label="Check engine connection" onClick={refreshEngine} disabled={engine.state === 'checking'}><Icon name="refresh" size={16} /></button></div><div className="engine-line"><span>Local API</span><span className={`connection-label ${engine.state === 'connected' ? 'green' : ''}`}><span className="status-dot" />{engine.state === 'checking' ? 'Checking' : engine.state === 'connected' ? 'Connected' : 'Offline'}</span></div><div className="engine-line"><span>ASL recognition</span><span className="connection-label">{asl?.recognize ? 'Provider available' : 'Not installed'}</span></div><p>{engine.state === 'offline' ? engine.message : asl?.recognize ? 'A provider is available. Camera-to-inference extraction is a separate integration step.' : 'Capture and export work now. Real translation requires a reviewed model and data.'}</p></div>
             <div className="export-card"><div className="export-header"><span className="export-icon"><Icon name="download" /></span><span className="clip-total">{String(clips.length).padStart(2, '0')}</span></div><h2>Your local session</h2><p>{clips.length ? 'Download your clips with their labels, hashes and permission references.' : 'Each recording will appear here, ready to review and export.'}</p><button className="button export-button" onClick={download} disabled={!clips.length || exporting || busy}>{exporting ? 'Preparing download…' : 'Download session ZIP'}<Icon name="download" size={17} /></button><span className="export-footnote">Private recordings · Review required</span></div>
           </aside>

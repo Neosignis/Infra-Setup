@@ -7,7 +7,7 @@ Implemented React/TypeScript camera capture and review client. Start from the re
 - Explicit camera permission; video-only, mirrored preview and an unmirrored recording.
 - Pseudonymous signer code and recording permission reference required before recording.
 - Twelve proposed everyday meaning labels plus unsupported/no-signing examples; ASL review is pending.
-- Start/finish, automatic stop before ten seconds, playback, discard and private ZIP export.
+- Start/finish controls below the preview, missing-setup guidance and focus, automatic stop before ten seconds, automatic saved-clip review, playback, discard and private ZIP export.
 - At most 12 clips, 8 MiB per clip and 64 MiB per session; recordings remain in browser memory until downloaded.
 - SHA-256 hashes and `neosignis.capture.v1` manifest, pending rights/reference review and unassigned dataset splits.
 - Separate local API connection and recognition capability states. No invented translation or confidence.

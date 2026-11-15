@@ -1365,3 +1365,13 @@ footer>span:last-child {
     overflow-wrap:break-word
   }
 }
+
+.capture-controls { padding: 0 20px 18px; }
+.capture-controls .record-action { margin-top: 0; padding-top: 16px; }
+.capture-status { margin-top: 12px; font-size: 13px; color: #435d45; line-height: 1.6; }
+.saved-clip-banner { padding: 16px 20px; background: #edf4e8; color: #344f39; font-size: 13px; }
+.saved-clip-banner svg { vertical-align: middle; margin-right: 6px; }
+@media(max-width:650px) {
+  .camera-toolbar { flex-wrap: wrap; }
+  .capture-controls { padding: 0 16px 16px; }
+}

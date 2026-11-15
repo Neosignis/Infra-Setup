@@ -24,6 +24,25 @@ describe('local camera workbench', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Enable camera' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('permission was declined');
   });
+  it('shows why preview has not recorded and focuses each missing prerequisite', async () => {
+    const next = { getTracks: () => [{ stop: vi.fn() }] } as unknown as MediaStream;
+    Object.defineProperty(navigator, 'mediaDevices', { configurable: true, value: { getUserMedia: vi.fn().mockResolvedValue(next) } });
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: 'Enable camera' }));
+    await screen.findByText('Camera on');
+    const start = screen.getByRole('button', { name: 'Start recording' });
+    expect(start).toBeEnabled();
+    fireEvent.click(start);
+    expect(screen.getByRole('alert')).toHaveTextContent('Before recording: Enter a signer code');
+    expect(screen.getByLabelText('Signer code')).toHaveFocus();
+    fireEvent.change(screen.getByLabelText('Signer code'), { target: { value: 'self-001' } });
+    fireEvent.click(start);
+    expect(screen.getByLabelText('Recording permission reference')).toHaveFocus();
+    fireEvent.change(screen.getByLabelText('Recording permission reference'), { target: { value: 'self-test-001' } });
+    fireEvent.click(start);
+    expect(screen.getByRole('checkbox')).toHaveFocus();
+    expect(screen.queryByRole('button', { name: 'Finish recording' })).not.toBeInTheDocument();
+  });
   it('stops a stream that resolves after its permission request was cancelled', async () => {
     let resolve: (value: MediaStream) => void = () => {};
     const stopped = vi.fn();

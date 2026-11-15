@@ -5,9 +5,9 @@ Updated 15 November 2026. The camera and Python checks below were run for this c
 | Check | Result | What it establishes |
 |---|---|---|
 | Python unit/in-process API tests | **54 passed** | JWT purpose/client/issuer/expiry/signature checks; local/cloud safety; bounded inputs; timestamp rules; content-free errors; absent models; language/signer/version separation; cancellation/admission behavior |
-| Workbench unit/UI tests | **25 passed** | metadata, export, recorder limits/errors/disposal, capability states and camera permission behavior |
+| Workbench unit/UI tests | **26 passed** | metadata, export, recorder limits/errors/disposal, capability states and camera permission behavior |
 | Workbench TypeScript/production build | **Passed** | type checking and compiled assets; not hosting |
-| Chromium browser tests | **4 passed** | actual API connection, simulated-camera MediaRecorder/playback/export with Python ZIP validation, denied permission, offline API and narrow-screen overflow |
+| Chromium browser tests | **5 passed** | actual API connection, simulated-camera MediaRecorder/playback/export with Python ZIP validation, denied permission, offline API, narrow-screen overflow, and missing-setup guidance/focus without accidental recording |
 | Launcher teardown | **Passed in browser suite** | graceful SIGTERM shutdown of web, API and worker, without orphaned listeners |
 | Actual hardware camera / Deaf ASL evaluation | **Pending** | simulated-camera tests do not establish real device usability or ASL accuracy |
 | Real loopback gateway → worker HTTP smoke | **Passed** | liveness 200; authenticated capabilities list ASL/NSL as disabled; readiness 503; unauthenticated API 401; temporary processes stopped |
