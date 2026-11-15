@@ -6,7 +6,7 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 errors = []
-paths = [p for p in root.rglob('*') if not any(part.startswith('.') or part in {'__pycache__', 'validation-logs'} for part in p.relative_to(root).parts)]
+paths = [p for p in root.rglob('*') if not any(part.startswith('.') or part in {'__pycache__', 'validation-logs', 'node_modules', 'dist', 'build', 'test-results', 'playwright-report'} for part in p.relative_to(root).parts)]
 for path in paths:
     if path.suffix == '.json' or path.name.endswith('.json.example'):
         json.loads(path.read_text())

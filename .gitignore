@@ -29,3 +29,11 @@ build/
 *.egg-info/
 .DS_Store
 validation-logs/
+data/local/
+*.webm
+*.mkv
+playwright-report/
+test-results/
+.sites-runtime/
+*.tsbuildinfo
+neosignis-local-session-*.zip
