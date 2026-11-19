@@ -1,0 +1,32 @@
+{
+  "source_id": "how2sign",
+  "provided_by": "user_browser_download",
+  "verified_at": "2026-11-18",
+  "publisher_page": "https://how2sign.github.io/",
+  "publisher_file_url": "https://drive.google.com/file/d/1DhLH8tIBn9HsTzUJUfsEOGcP4l9EvOiO/view",
+  "archive_path": "/Users/user/Downloads/val_rgb_front_clips.zip",
+  "archive_bytes": 1778074855,
+  "archive_sha256": "6cb48170131fdb7fc64d40381a3c4be41112ba4454444170f5a31af2227b6d36",
+  "split": "val",
+  "view": "front",
+  "mp4_files": 1739,
+  "matched_reference_ids": 1739,
+  "reference_rows_without_video": 2,
+  "unreferenced_videos": 0,
+  "complete_dataset_downloaded": false,
+  "selected_archive_integrity_checked": true,
+  "public_license": "CC BY-NC 4.0",
+  "commercial_permission_obtained": false,
+  "training_approved": false,
+  "rendering_approved": false,
+  "video_decode_checked": false,
+  "linguistic_review_completed": false,
+  "uploaded_to_aws": false,
+  "preview_file": "data/local/how2sign/research-only/val/front/preview/how2sign-front-source-001.mp4",
+  "notes": [
+    "ZIP read in place; full archive was not copied or extracted.",
+    "Matching filenames do not establish temporal or semantic correctness.",
+    "Reasons for missing reference/video matches have not been established.",
+    "User should retain the original ZIP until a verified storage copy exists."
+  ]
+}

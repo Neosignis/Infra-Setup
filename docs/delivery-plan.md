@@ -1,10 +1,12 @@
 # Delivery plan and team handoff
 
-Work begins on Friday 13 November 2026 in Africa/Lagos time. The requested this-week target is an internal bounded engine proof by Sunday 15 November if model/data/reviewer access is available. These are three delivery sessions, not an assumption that the team is staffed through the weekend. If that is not feasible, preserve the same order over the next three working sessions.
+The founder-confirmed [MVP acceptance baseline](mvp-acceptance.md), dated 18 November 2026, takes precedence for release acceptance: mobile and desktop browsers, in-person real-time ASL, sign-to-text and text-to-sign in the same session. Recognition-first remains the build sequence; both directions and actual-device evaluation are required for the release.
+
+Current sequencing, milestones and dependencies are in the [reviewed System Architecture and Delivery Plan v2.0](neosignis-system-architecture-and-delivery-plan.md), dated 16 November 2026. The original November 13–15 three-session target has elapsed without model/data/reviewer access and is not an active commitment. The outline below remains a work-package reference; the reviewed gates take precedence over its original schedule.
 
 The architecture and foundation can be completed independently of a trained model. An actual sign-language engine and realistic avatar cannot be honestly promised for a fixed date without data, rights, suitable models and reviewer capacity.
 
-## First three sessions
+## Original three-session outline (historical planning example)
 
 | Session | Owner role | Work and dependencies | Acceptance |
 |---|---|---|---|
@@ -20,7 +22,7 @@ Do not let AWS setup block local inference. Provision cloud only when a measured
 |---|---|---|---|---|
 | WP01 | Technical lead | architecture, ADRs, requirements, boundaries, review decisions | current materials | team review resolves key decisions and records exceptions |
 | WP02 | Platform engineer | Terraform bootstrap, identity, ECR/S3, private network, cost alerts | AWS account/region/budget | fmt/validate/plan and approved apply; security checks; no unexpected running GPU |
-| WP03 | Platform + backend | CI, image build, digest release, Cognito auth | GitHub auth/owner; WP02 | private repo, branch protection, build and auth smoke test |
+| WP03 | Platform + backend | CI, image build, digest release, Cognito auth | GitHub auth/owner; WP02 | reviewed repository access, branch protection, build and auth smoke test |
 | WP04 | Deaf ASL lead + data steward | paid reviewers, scope, data collection/consent/provenance, holdout | contributors and rights | approved scope and auditable signer-independent splits |
 | WP05 | ML lead | model selection, adapter, calibration, quality/error evaluation | WP04 + checkpoint | G1 report and capability only enabled for approved scope |
 | WP06 | Web engineer | camera workbench, tracking, capture quality, correction and accessibility | input contract + WP05 | camera-to-text loop tested with real signer, mirrored camera handled correctly |
@@ -36,13 +38,13 @@ Roles are assignments to fill, not claims of available staff. Initial parallel o
 
 ## GitHub work structure
 
-Use one private `neosignis-engine` repository initially. Protect `main` with required CI, PR review and no force pushes. Assign CODEOWNERS only after actual GitHub handles are known. Create labels `architecture`, `platform`, `backend`, `web`, `ml`, `data-rights`, `asl`, `nsl`, `rendering`, `evaluation`, `blocked`. Convert work packages into issues with owner, dependency, acceptance and evidence links. Keep raw data, model weights, personal information and supplied confidential screenshots outside GitHub.
+Use the existing `Neosignis/Infra-Setup` repository; its access/visibility and branch protections require deliberate settings review, not a new assumed repository. Protect `main` with required CI, PR review and no force pushes. Assign CODEOWNERS only after actual GitHub handles are known. Create labels `architecture`, `platform`, `backend`, `web`, `ml`, `data-rights`, `asl`, `nsl`, `rendering`, `evaluation`, `blocked`. Convert work packages into issues with owner, dependency, acceptance and evidence links. Keep raw data, model weights, personal information and supplied confidential screenshots outside GitHub.
 
 Use small PRs and explicit schema/API version changes. Model and language-pack promotions are independent from application releases; each pins a digest and evaluation report. Development deployments use a protected GitHub environment. Production is not enabled by a directory name or CI success alone.
 
 ## Review decisions
 
-ASL first is confirmed. The following remain required before cloud deployment or model release: GitHub owner/authentication; AWS account, region and budget; selected model and all rights; bounded demo vocabulary/domain; reviewer availability and acceptance thresholds; first signer assets and renderer choice. The local engineering foundation proceeds while these are pending.
+ASL first is confirmed. The following remain required before cloud deployment or model release: AWS account, region and budget; publication/deployment role and environment settings; selected model and all rights; bounded demo vocabulary/domain; reviewer availability and acceptance thresholds; first signer assets and renderer choice. The local engineering foundation proceeds while these are pending.
 
 ## Migration strategy
 

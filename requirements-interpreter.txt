@@ -1,0 +1,3 @@
+# Combined local interpreter environment for fresh installations.
+-r requirements-ml-macos.txt
+-r requirements.txt

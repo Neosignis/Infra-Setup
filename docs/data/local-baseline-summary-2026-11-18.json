@@ -1,0 +1,16 @@
+{
+  "status": "prediction_produced",
+  "source_split": "val",
+  "frames": 82,
+  "last_pts_ms": 3375.0,
+  "device": "cpu",
+  "pose_elapsed_s": 24.434,
+  "model_load_s": 18.788,
+  "translation_elapsed_s": 5.052,
+  "training_run": false,
+  "linguistic_accuracy_approved": false,
+  "note": "One development prediction is not a benchmark or real-time acceptance result.",
+  "prediction_matches_supplied_reference": false,
+  "semantic_gate_passed": false,
+  "live_latency_gate_passed": false
+}

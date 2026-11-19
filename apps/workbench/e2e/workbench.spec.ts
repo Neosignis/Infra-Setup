@@ -4,10 +4,17 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import JSZip from 'jszip';
 
+test.beforeEach(async ({ page }) => {
+  // Studio tests are independent of the optional research model process.
+  await page.route('**/research/status', route => route.fulfill({ json: {
+    available: false, busy: false, mode: 'experimental_buffered_video', quality_validated: false, confidence_calibrated: false,
+  } }));
+});
+
 test('connects to the real API without claiming a recognition model', async ({ page, request }, testInfo) => {
-  await page.goto('/');
+  await page.goto('/#studio');
   await expect(page.getByText('Connected', { exact: true })).toBeVisible();
-  await expect(page.getByText('Not installed', { exact: true })).toBeVisible();
+  await expect(page.getByText('Use Interpreter experiment', { exact: true })).toBeVisible();
   const capabilities = await request.get('/engine/v1/capabilities');
   expect(capabilities.ok()).toBe(true);
   const body = await capabilities.json();
@@ -21,7 +28,7 @@ test('records simulated camera video, reviews it and exports verifiable bytes', 
   page.on('request', request => {
     if (!['GET', 'HEAD'].includes(request.method())) unexpectedWrites.push(request.url());
   });
-  await page.goto('/');
+  await page.goto('/#studio');
   await page.getByLabel('Signer code', { exact: true }).fill('test-signer');
   await page.getByLabel('Recording permission reference', { exact: true }).fill('test-permission');
   await page.getByRole('checkbox').check();
@@ -65,7 +72,7 @@ test('records simulated camera video, reviews it and exports verifiable bytes', 
   await expect(page.getByText('Your first clip starts an exchange.')).toBeVisible();
   await page.getByRole('button', { name: /Camera capture/ }).click();
   await page.getByRole('button', { name: 'Turn camera off', exact: true }).click();
-  await expect(page.getByText('Camera off', { exact: true })).toBeVisible();
+  await expect(page.getByRole('region', { name: 'Camera capture', exact: true }).getByText('Camera off', { exact: true })).toBeVisible();
 });
 
 test('handles a declined camera request and an offline API', async ({ page }) => {
@@ -73,7 +80,7 @@ test('handles a declined camera request and an offline API', async ({ page }) =>
   await page.addInitScript(() => {
     navigator.mediaDevices.getUserMedia = async () => { throw new DOMException('Test declined permission', 'NotAllowedError'); };
   });
-  await page.goto('/');
+  await page.goto('/#studio');
   await expect(page.getByText('Offline', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Enable camera', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('Camera permission was declined');
@@ -82,10 +89,10 @@ test('handles a declined camera request and an offline API', async ({ page }) =>
 
 test('has no horizontal overflow on a narrow screen', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('/#studio');
   await expect(page.getByRole('heading', { name: 'Capture a signing sample.' })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-  const stage = await page.locator('.camera-stage').boundingBox();
+  const stage = await page.locator('.camera-stage:visible').boundingBox();
   const instruction = await page.getByRole('heading', { name: 'A little space for both hands.' }).boundingBox();
   expect(instruction!.x).toBeGreaterThanOrEqual(stage!.x);
   expect(instruction!.x + instruction!.width).toBeLessThanOrEqual(stage!.x + stage!.width);
@@ -96,7 +103,7 @@ test('has no horizontal overflow on a narrow screen', async ({ page }, testInfo)
 
 test('camera preview explains missing setup and never silently starts recording', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('/#studio');
   await page.getByRole('button', { name: 'Enable camera', exact: true }).click();
   const start = page.getByRole('button', { name: 'Start recording', exact: true });
   await expect(start).toBeEnabled();

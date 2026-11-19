@@ -1,0 +1,244 @@
+{
+  "schema_version": "neosignis.source-register.v1",
+  "status": "candidate_register_not_an_ingested_dataset",
+  "sources": [
+    {
+      "id": "popsign-v1",
+      "publisher": "Georgia Tech / Deaf Professional Arts Network",
+      "source_url": "https://signdata.cc.gatech.edu/view/datasets/popsign_v1_0/",
+      "reported_version": "1.0",
+      "kind": "isolated_sign_video",
+      "language_tags": [
+        "ase"
+      ],
+      "published_license": "CC BY 4.0",
+      "product_training_status": "candidate_requires_attribution_and_scope_review",
+      "intended_assessment": "Isolated recognition/pretraining only; verify vocabulary and capture compatibility.",
+      "checked_at": "2026-11-15",
+      "rights_review_status": "pending",
+      "training_approved": false,
+      "rendering_approved": false,
+      "downloaded": true,
+      "artifact_sha256": "2e13e83cf380a83fd2a44ed516325dc315623df3c10cd5d9da428d60cb7ee0ae",
+      "access_url": "https://signdata.cc.gatech.edu/view/guides/downloading_popsign/index.html",
+      "access_status": "selected_archive_downloaded_structure_checked_not_training_approved",
+      "access_instructions": "Use official per-sign TAR archives for a dataset/category/split/sign. Inspect file sizes before downloading; preserve train/val/test. Preview videos are resized and speed-adjusted, not training originals. Non-game does not automatically mean no-signing or invalid ASL.",
+      "access_checked_at": "2026-11-17",
+      "download_guide_url": "https://signdata.cc.gatech.edu/view/guides/downloading_popsign/index.html",
+      "download_url_template": "https://signdata.cc.gatech.edu/data/{dataset}/{category}/{split}/{sign}.tar",
+      "documented_example_url": "https://signdata.cc.gatech.edu/data/popsign_v1_0/game/train/after.tar",
+      "access_evidence_path": "docs/data/popsign-access-check-2026-11-17.json",
+      "verified_archive_headers": [
+        {
+          "url": "https://signdata.cc.gatech.edu/data/popsign_v1_0/game/train/after.tar",
+          "sign": "after",
+          "split": "train",
+          "http_status": 200,
+          "content_type": "application/x-tar",
+          "content_length_bytes": 2098012160
+        },
+        {
+          "url": "https://signdata.cc.gatech.edu/data/popsign_v1_0/game/val/hello.tar",
+          "sign": "hello",
+          "split": "val",
+          "http_status": 200,
+          "content_type": "application/x-tar",
+          "content_length_bytes": 925061120
+        },
+        {
+          "url": "https://signdata.cc.gatech.edu/data/popsign_v1_0/game/test/hello.tar",
+          "sign": "hello",
+          "split": "test",
+          "http_status": 200,
+          "content_type": "application/x-tar",
+          "content_length_bytes": 570572800
+        }
+      ],
+      "complete_dataset_downloaded": false,
+      "download_scope": {
+        "category": "game",
+        "split": "val",
+        "sign": "hello",
+        "files": 157,
+        "archive_bytes": 925061120
+      },
+      "downloaded_at": "2026-11-18",
+      "acquisition_evidence_path": "docs/data/popsign-sample-acquisition-2026-11-18.json"
+    },
+    {
+      "id": "asl-citizen",
+      "publisher": "Microsoft Research and academic partners",
+      "source_url": "https://www.microsoft.com/en-us/research/project/asl-citizen/",
+      "license_url": "https://www.microsoft.com/en-us/research/project/asl-citizen/dataset-license/",
+      "reported_version": null,
+      "kind": "isolated_sign_video",
+      "language_tags": [
+        "ase"
+      ],
+      "published_license": "Microsoft Research terms: non-commercial, non-revenue-generating research",
+      "product_training_status": "separate_commercial_permission_required",
+      "intended_assessment": "Research benchmark candidate; request permitted commercial uses before product training.",
+      "checked_at": "2026-11-15",
+      "rights_review_status": "pending",
+      "training_approved": false,
+      "rendering_approved": false,
+      "downloaded": false,
+      "artifact_sha256": null,
+      "access_url": "https://www.microsoft.com/en-us/download/details.aspx?id=105253",
+      "access_status": "official_download_page_verified_not_downloaded",
+      "access_instructions": "Select Download and ASL_Citizen.zip (42.8 GB); establish permitted purpose/commercial permission first. Demographics.zip is not the signing corpus.",
+      "access_checked_at": "2026-11-17"
+    },
+    {
+      "id": "wlasl",
+      "publisher": "WLASL maintainers",
+      "source_url": "https://github.com/dxli94/WLASL/blob/master/README.md",
+      "reported_version": null,
+      "kind": "isolated_sign_video",
+      "language_tags": [
+        "ase"
+      ],
+      "published_license": "C-UDA plus maintainer no-commercial-use notice",
+      "product_training_status": "not_permitted_by_reviewed_public_notice",
+      "intended_assessment": "Research comparison only after use permission is established; do not infer weight rights from code.",
+      "checked_at": "2026-11-15",
+      "rights_review_status": "pending",
+      "training_approved": false,
+      "rendering_approved": false,
+      "downloaded": false,
+      "artifact_sha256": null,
+      "access_url": "https://github.com/dxli94/WLASL",
+      "access_status": "repository_instructions_verified_not_downloaded",
+      "access_instructions": "The start_kit has annotations/download/preprocessing code. A GitHub clone is not the full video dataset; public notice excludes commercial use.",
+      "access_checked_at": "2026-11-17"
+    },
+    {
+      "id": "how2sign",
+      "publisher": "How2Sign maintainers",
+      "source_url": "https://how2sign.github.io/",
+      "reported_version": null,
+      "kind": "continuous_asl_english_parallel_video",
+      "language_tags": [
+        "ase"
+      ],
+      "published_license": "CC BY-NC 4.0",
+      "product_training_status": "separate_commercial_permission_required",
+      "intended_assessment": "Continuous-language research reference; no assumed product-training permission.",
+      "checked_at": "2026-11-15",
+      "rights_review_status": "pending",
+      "training_approved": false,
+      "rendering_approved": false,
+      "downloaded": true,
+      "artifact_sha256": "6cb48170131fdb7fc64d40381a3c4be41112ba4454444170f5a31af2227b6d36",
+      "access_url": "https://how2sign.github.io/#download",
+      "access_status": "user_provided_frontal_validation_zip_crc_hash_checked_not_training_approved",
+      "access_instructions": "Use official Download section: frontal RGB sentence clips plus matching manually re-aligned English references; public use is noncommercial.",
+      "access_checked_at": "2026-11-18",
+      "complete_dataset_downloaded": false,
+      "download_scope": {
+        "split": "val",
+        "view": "front",
+        "modality": "original_sentence_clips_and_original_English_references",
+        "mp4_files": 1739,
+        "reference_records": 1741
+      },
+      "downloaded_at": "2026-11-18",
+      "artifact_file": "val_rgb_front_clips.zip",
+      "access_evidence_path": "docs/data/how2sign-access-check-2026-11-18.json",
+      "acquisition_evidence_path": "docs/data/how2sign-acquisition-2026-11-18.json",
+      "decode_probe": {
+        "sampled_clips": 32,
+        "fully_decoded_clips": 32,
+        "all_source_videos_decoded": false,
+        "report": "docs/data/how2sign-decode-summary-2026-11-18.json",
+        "training_approved": false
+      },
+      "training_pose_pilot": {
+        "prepared_at": "2026-11-18",
+        "publisher_model_repository": "ZechengLi19/Uni-Sign",
+        "pose_revision": "eab251b7fe7e8521afc0e67be98add670ea40a0d",
+        "annotation_revision": "eed438bcb49e30405cd6ccdfcccca330c134e830",
+        "annotation_scope": "model-maintainer derived training labels, not a newly downloaded original publisher CSV",
+        "publisher_training_annotation_rows": 31086,
+        "training_utterances_prepared": 32,
+        "training_pose_frames": 4203,
+        "validation_feature_utterances_prepared": 2,
+        "train_validation_source_video_overlap": 0,
+        "signer_disjointness_verified": false,
+        "linguistic_alignment_review_complete": false,
+        "purpose": "experimental preparation process pilot only",
+        "raw_training_video_downloaded": false,
+        "training_run": false,
+        "report": "docs/data/training-preparation-2026-11-18.json"
+      }
+    },
+    {
+      "id": "clerc-epee",
+      "publisher": "CLERC",
+      "source_url": "https://clerc.io/data",
+      "dataset_card_url": "https://huggingface.co/datasets/CLERC-DATA/epee",
+      "reported_version": "0.4",
+      "kind": "128_keypoint_sequences_with_english_gloss_annotations",
+      "language_tags": [
+        "ase"
+      ],
+      "published_license": "CC BY-NC-SA 4.0 public release; separate commercial licensing advertised",
+      "product_training_status": "commercial_quote_and_rights_review_required",
+      "intended_assessment": "Check exact feature semantics, signer split and rights; raw signer video is not supplied.",
+      "checked_at": "2026-11-15",
+      "rights_review_status": "pending",
+      "training_approved": false,
+      "rendering_approved": false,
+      "downloaded": false,
+      "artifact_sha256": null,
+      "access_url": "https://huggingface.co/datasets/CLERC-DATA/epee/tree/main",
+      "access_status": "dataset_card_and_file_listing_verified_not_downloaded",
+      "access_instructions": "Inspect metadata.csv, annotations JSON and keypoints NPY. These are numerical features, not raw signer videos; commercial rights require separate agreement.",
+      "access_checked_at": "2026-11-17"
+    },
+    {
+      "id": "talksign-marketplace",
+      "publisher": "Talksign",
+      "source_url": "https://www.talksign.co/marketplace",
+      "reported_version": null,
+      "kind": "advertised_licensed_video_and_annotations",
+      "language_tags": [
+        "ase",
+        "nsi"
+      ],
+      "published_license": "Commercial/research licences advertised; actual agreement not inspected",
+      "product_training_status": "availability_samples_and_contract_unverified",
+      "intended_assessment": "Request exact-language/domain samples, chain of rights, annotation and signer-disjoint split evidence.",
+      "checked_at": "2026-11-15",
+      "rights_review_status": "pending",
+      "training_approved": false,
+      "rendering_approved": false,
+      "downloaded": false,
+      "artifact_sha256": null,
+      "access_url": "https://www.talksign.co/marketplace",
+      "access_status": "marketing_page_verified_catalogue_samples_and_contract_unverified",
+      "access_instructions": "Use supplier enquiry route. No downloadable catalogue, sample delivery, price or commercial contract verified.",
+      "access_checked_at": "2026-11-17"
+    },
+    {
+      "id": "assistant-phrase-v1",
+      "publisher": "Georgia Tech / Deaf Professional Arts Network",
+      "source_url": "https://signdata.cc.gatech.edu/view/datasets/assistant_phrase_v1_0/index.html",
+      "reported_version": "1.0",
+      "kind": "assistant_command_phrase_landmarks_parquet_with_text_references",
+      "language_tags": [
+        "ase"
+      ],
+      "published_license": "CC BY 4.0 stated on data card; release banner says dataset unavailable",
+      "product_training_status": "not_available_release_and_scope_review_required",
+      "intended_assessment": "Potential bounded assistant-phrase recognition reference; publisher excludes general continuous interpretation. Page contains a historical release-date field but prominently says actual data is not yet available.",
+      "checked_at": "2026-11-17",
+      "rights_review_status": "pending",
+      "training_approved": false,
+      "rendering_approved": false,
+      "downloaded": false,
+      "artifact_sha256": null,
+      "access_status": "unreleased_banner_verified_no_data_download_confirmed"
+    }
+  ]
+}

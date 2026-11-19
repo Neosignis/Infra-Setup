@@ -1,0 +1,6 @@
+# Proposed state bucket; existence/access have not been verified.
+bucket       = "neosignis-state-324793866495-us-east-1"
+key          = "datasets/terraform.tfstate"
+region       = "us-east-1"
+encrypt      = true
+use_lockfile = true

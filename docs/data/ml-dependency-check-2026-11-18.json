@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-11-18",
+  "python_environment": ".venv-ml",
+  "packages": {
+    "torch": {
+      "version": "2.9.0",
+      "import_passed": true
+    },
+    "torchvision": {
+      "version": "0.24.0",
+      "import_passed": true
+    },
+    "transformers": {
+      "version": "4.40.0",
+      "import_passed": true
+    },
+    "tokenizers": {
+      "version": "0.19.1",
+      "import_passed": true
+    },
+    "sentencepiece": {
+      "version": "0.2.0",
+      "import_passed": true
+    },
+    "numpy": {
+      "version": "1.26.4",
+      "import_passed": true
+    },
+    "av": {
+      "version": "19.0.2",
+      "import_passed": true
+    },
+    "einops": {
+      "version": "0.8.1",
+      "import_passed": true
+    },
+    "onnxruntime": {
+      "version": "1.20.1",
+      "import_passed": true
+    },
+    "rtmlib": {
+      "version": "0.0.13",
+      "import_passed": true
+    },
+    "opencv-python": {
+      "version": "4.10.0.84",
+      "import_passed": true
+    },
+    "opencv-contrib-python": {
+      "version": "4.10.0.84",
+      "import_passed": true
+    }
+  }
+}

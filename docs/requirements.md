@@ -1,5 +1,7 @@
 # Requirements and source review
 
+**18 November 2026 scope confirmation:** the [MVP acceptance baseline](mvp-acceptance.md) requires live, in-person ASL sign-to-text and text-to-sign in mobile and desktop browsers. Both directions belong to the successful MVP. Camera capture and individual-sign experiments remain intermediate milestones. This confirmation takes precedence over older milestone wording.
+
 Decision date: 13 November 2026. Working scope: architecture rebuild and engineering foundation for an engine-first Neosignis Interpreter. The user confirmed ASL first, with NSL designed into the architecture.
 
 ## Source hierarchy
@@ -30,6 +32,7 @@ GitHub CLI and AWS CLI are installed. GitHub CLI was not authenticated at inspec
 | R10 | Human escalation | explicit future dispatch state machine with no fabricated connection | partner availability, consent and handoff test; pending |
 | R11 | Privacy and contributor rights | no raw capture persistence in foundation; provenance/withdrawal design | lifecycle, access, deletion and model lineage tests before pilot |
 | R12 | Maintainable production path | modular API + separate ML workers, PostgreSQL schema, runbooks | production gate remains closed until integration and recovery tests |
+| R13 | Mobile and desktop browsers for live in-person ASL conversation | shared responsive session with both directions | repeated two-person exchange on real phones and desktop browsers, with agreed latency/language gates; pending |
 
 ## Working assumptions and open decisions
 

@@ -1,6 +1,6 @@
-# First local camera release
+# Contributor Studio: local dataset capture
 
-This release makes the browser capture/evaluation path usable without AWS, Docker, signup or a trained model. It is not a foundation model or a working interpreter. ASL is first; NSL remains a separate language pack and release gate. Zoom and signup follow engine validation.
+This guide covers the dataset capture screen at `http://127.0.0.1:5173/#studio`. The default screen is now the separate [Interpreter experiment](interpreter-experiment.md). Studio needs no model, AWS, Docker or signup. ASL is first; NSL remains a separate language pack and release gate.
 
 ## Install and start
 
@@ -27,7 +27,7 @@ Use the printed URL. Camera access needs localhost/loopback or HTTPS; opening th
 
 ## Review this build
 
-1. Open the app. **Local API: Connected** and **ASL recognition: Not installed** should appear. Worker readiness 503 is expected while no model is installed.
+1. Open **Contributor Studio**. **Local API: Connected** and **ASL recognition: Use Interpreter experiment** should appear. Worker readiness 503 remains expected: the experimental video service is separate from this approved-provider API.
 2. Enable the camera and allow browser/operating-system permission. The preview should move; face, upper body and both hands should fit. No microphone is requested. Framing is a visual guide, not an automated check.
 3. **Start recording** is directly below the preview. If setup is incomplete, selecting it explains the missing item and focuses that field; it does not begin recording. Enter a pseudonymous signer code and a reference to the separate recording permission record. A self-test may use `self-001` / `self-test-001` after your own explicit agreement. Do not type names or contact information. A checkbox is not a license, model approval or training permission.
 4. Choose a proposed meaning, start recording, sign naturally and finish. Automatic stop is just before ten seconds; delayed/background-tab recordings longer than the limit are rejected. These English labels are meanings for ASL review, not signing instructions. If you are not fluent, test camera mechanics only and do not treat your recording as ASL ground truth.

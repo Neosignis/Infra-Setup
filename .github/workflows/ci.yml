@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m pip install -r requirements-dev.txt -r requirements-data.txt
       - run: PYTHONPATH=src python -m unittest discover -s tests -v
       - run: PYTHONPATH=src python scripts/export_openapi.py --check
       - run: python scripts/check_repository.py
@@ -59,6 +59,17 @@ jobs:
           trap cleanup EXIT
           docker compose up -d --build
           python scripts/smoke_compose.py
+  training-loader:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-data.txt
+      - run: python -m pip install torch==2.9.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install transformers==4.40.0 sentencepiece==0.2.0 opencv-python==4.10.0.84
+      - run: PYTHONPATH=src python -m unittest discover -s tests -p 'test_training_*.py' -v
   workbench:
     runs-on: ubuntu-latest
     steps:
@@ -95,3 +106,6 @@ jobs:
       - run: terraform -chdir=infra/environments/dev init -backend=false -input=false
       - run: terraform -chdir=infra/environments/dev validate
       - run: terraform -chdir=infra/environments/dev test -no-color
+      - run: terraform -chdir=infra/environments/datasets init -backend=false -input=false
+      - run: terraform -chdir=infra/environments/datasets validate
+      - run: terraform -chdir=infra/environments/datasets test -no-color

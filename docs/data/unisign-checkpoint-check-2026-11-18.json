@@ -1,0 +1,11 @@
+{
+  "checkpoint_verified": true,
+  "tensor_keys": 627,
+  "tensor_elements": 973459584,
+  "dtypes": [
+    "torch.bfloat16",
+    "torch.int64"
+  ],
+  "has_decoder_weights": true,
+  "training_run": false
+}

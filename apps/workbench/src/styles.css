@@ -1367,6 +1367,26 @@ footer>span:last-child {
 }
 
 .capture-controls { padding: 0 20px 18px; }
+.interpreter-recording,.interpretation-panel,.reply-panel { padding: 24px; margin-top: 22px; }
+.interpreter-recording h2,.interpretation-panel h2,.reply-panel h2 { font-size: 21px; font-weight: 500; margin-bottom: 14px; letter-spacing: -.4px; }
+.interpreter-recording p,.interpretation-panel p,.reply-panel p { line-height: 1.8; color: #53684e; }
+.interpreter-recording video { width: 100%; max-height: 300px; background: #203a32; border-radius: 8px; margin: 16px 0; }
+.interpreter-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.interpreter-grid { align-items: start; }
+.interpreter-shell .live-video { object-fit: contain; }
+.interpretation-panel { min-height: 240px; margin-top: 0; }
+.interpretation-panel .eyebrow,.reply-panel .eyebrow { display: block; margin-bottom: 12px; }
+.interpreted-text,.reply-text { font-size: 25px; color: #203a32!important; padding: 15px 0; overflow-wrap: anywhere; }
+.result-label { font-size: 12px; display: inline-block; background: #f3eddc; border-radius: 5px; padding: 4px 8px; margin-bottom: 12px; color: #725b31; }
+.reply-panel { margin-top: 0; }
+.reply-panel textarea { width: 100%; min-height: 108px; resize: vertical; border: 1px solid #d6e0d1; border-radius: 7px; padding: 12px; font: inherit; color: #203a32; background: #fcfdf9; margin-bottom: 12px; }
+.pilot-scope { padding: 22px 0; max-width: 760px; color: #53684e; }
+.pilot-scope summary { cursor: pointer; font-weight: 550; }
+.pilot-scope p { margin-top: 12px; line-height: 1.8; }
+.processing-indicator { width: 32px; height: 5px; background: #719579; border-radius: 4px; margin: 20px 0; animation: pulse 1.4s ease-in-out infinite alternate; }
+@keyframes pulse { to { opacity: .3; width: 80px; } }
+@media(max-width:950px) { .interpreter-shell .details-column { grid-template-columns: 1fr; } }
+@media(max-width:650px) { .interpreter-shell .sidebar nav .nav-item { font-size: 11px; width: auto; flex-direction: column; } .interpreter-shell .brand { font-size: 18px; } .interpreter-shell .sidebar { padding: 12px; } }
 .capture-controls .record-action { margin-top: 0; padding-top: 16px; }
 .capture-status { margin-top: 12px; font-size: 13px; color: #435d45; line-height: 1.6; }
 .saved-clip-banner { padding: 16px 20px; background: #edf4e8; color: #344f39; font-size: 13px; }

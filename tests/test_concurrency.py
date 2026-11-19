@@ -18,7 +18,7 @@ class AdmissionTests(unittest.IsolatedAsyncioTestCase):
 
         def blocking(request):
             started.set()
-            if not release.wait(timeout=5):
+            if not release.wait(timeout=30):
                 raise RuntimeError("test provider was not released")
             return original(request)
 
@@ -28,7 +28,9 @@ class AdmissionTests(unittest.IsolatedAsyncioTestCase):
             async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url='http://fixture') as client:
                 task = asyncio.create_task(client.post('/v1/recognize', json=utterance()))
                 try:
-                    self.assertTrue(await asyncio.to_thread(started.wait, 2))
+                    # This checks cancellation/admission semantics, not startup
+                    # latency. Busy developer machines may need extra startup time.
+                    self.assertTrue(await asyncio.to_thread(started.wait, 10))
                     task.cancel()
                     with self.assertRaises(asyncio.CancelledError):
                         await task

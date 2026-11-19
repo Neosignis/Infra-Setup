@@ -1,0 +1,53 @@
+{
+  "status": "prepared_pilot_loader_check_passed",
+  "training_utterances": 32,
+  "validation_feature_utterances": 2,
+  "train_frames": 4203,
+  "training_frame_range": [
+    9,
+    552
+  ],
+  "target_token_range": [
+    4,
+    78
+  ],
+  "tokenizer": "same local T5Tokenizer as Uni-Sign runtime; truncation disabled",
+  "data_loader_batch_size_checked": 2,
+  "validation_catalogued": 1739,
+  "validation_missing_videos": 2,
+  "train_val_source_video_overlap": 0,
+  "signer_disjointness_verified": false,
+  "training_timestamps_known": false,
+  "validation_pts_preserved": true,
+  "quality_metrics_are_pose_visibility_only": true,
+  "alignment_review_complete": false,
+  "training_run": false,
+  "optimizer_steps": 0,
+  "all_numeric_files_hash_checked": true,
+  "all_pilot_frames_and_targets_retained": true,
+  "utterances_flagged_for_extra_review": [
+    "cwXQVmfKj48_4-5-rgb_front"
+  ],
+  "training_manifest_sha256": "b7f4837e97aeae725486b6d66a191eddd1934a985d3f5da97da360fae02339e2",
+  "validation_manifest_sha256": "2dc0b64137102a3ac544dec7bd795eb1b66d729155ccb44c781d1f1c75c68ef7",
+  "date": "2026-11-18",
+  "publisher_train_annotation_rows": 31086,
+  "training_numeric_bytes": 5133526,
+  "transfer": {
+    "bytes": 26010639,
+    "requests": 50,
+    "limit_bytes": 67108864,
+    "whole_parts_downloaded": false,
+    "whole_part_sha256_verified": false
+  },
+  "dataset_purpose": "training-process pilot, not a representative everyday-MVP corpus",
+  "storage": "data/local/prepared/how2sign-pilot-v1 (Git-ignored local storage)",
+  "no_cloud_resources_started": true,
+  "verification": {
+    "python_tests_passed": 159,
+    "preparation_tests_passed": 18,
+    "repository_checks": "passed",
+    "openapi_drift": "passed",
+    "whitespace": "passed"
+  }
+}

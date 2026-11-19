@@ -1,5 +1,7 @@
 # First engine and model strategy
 
+The [confirmed MVP](mvp-acceptance.md) requires live in-person ASL sign-to-text and text-to-sign together in mobile and desktop browsers. Recognition and reviewed-response milestones below are intermediate engine steps; neither alone completes the MVP.
+
 The first success is a real ASL signer producing correctly interpreted text on unseen signing examples. A second milestone plays a reviewed response in ASL. A realistic signing avatar is a later output backend whose visual quality cannot substitute for linguistic correctness.
 
 ## Week one scope

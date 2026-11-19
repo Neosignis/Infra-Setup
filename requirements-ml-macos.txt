@@ -1,0 +1,14 @@
+# Mac research runtime, Python 3.12; separate from the application image.
+-r requirements-data.txt
+torch==2.9.0
+torchvision==0.24.0
+transformers==4.40.0
+tokenizers==0.19.1
+sentencepiece==0.2.0
+einops==0.8.1
+onnxruntime==1.20.1
+rtmlib==0.0.13
+# RTMLib's published dependencies request both OpenCV distributions.
+# Pin both to the same NumPy-1-compatible release.
+opencv-python==4.10.0.84
+opencv-contrib-python==4.10.0.84

@@ -1,0 +1,20 @@
+{
+  "schema_version": "neosignis.local-compute-check.v1",
+  "machine": "arm64",
+  "torch_version": "2.9.0",
+  "physical_memory_bytes": 8589934592,
+  "disk_free_bytes": 14261026816,
+  "mps_built": true,
+  "mps_available_in_process": true,
+  "tested_device": "mps",
+  "synthetic_optimizer_step_passed": true,
+  "missing_optional_runtime_packages": [
+    "rtmlib",
+    "onnxruntime",
+    "transformers",
+    "sentencepiece"
+  ],
+  "unisign_loaded": false,
+  "asl_training_run": false,
+  "model_accuracy_measured": false
+}

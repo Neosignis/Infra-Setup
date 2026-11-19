@@ -1,0 +1,35 @@
+{
+  "checked_at": "2026-11-17",
+  "method": "HTTP HEAD only; no archive bodies downloaded",
+  "guide_url": "https://signdata.cc.gatech.edu/view/guides/downloading_popsign/index.html",
+  "archives": [
+    {
+      "url": "https://signdata.cc.gatech.edu/data/popsign_v1_0/game/train/after.tar",
+      "sign": "after",
+      "split": "train",
+      "http_status": 200,
+      "content_type": "application/x-tar",
+      "content_length_bytes": 2098012160
+    },
+    {
+      "url": "https://signdata.cc.gatech.edu/data/popsign_v1_0/game/val/hello.tar",
+      "sign": "hello",
+      "split": "val",
+      "http_status": 200,
+      "content_type": "application/x-tar",
+      "content_length_bytes": 925061120
+    },
+    {
+      "url": "https://signdata.cc.gatech.edu/data/popsign_v1_0/game/test/hello.tar",
+      "sign": "hello",
+      "split": "test",
+      "http_status": 200,
+      "content_type": "application/x-tar",
+      "content_length_bytes": 570572800
+    }
+  ],
+  "limits": [
+    "HTTP success does not establish archive integrity, contents, signer splits, training permission or model quality.",
+    "No video data was acquired, uploaded or used for training."
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "schema_version": "neosignis.meaning-set.draft.v1",
+  "status": "draft_not_frozen_not_linguistically_reviewed",
+  "language": "ase",
+  "domain": "everyday_in_person_conversation",
+  "mvp_definition": "docs/mvp-acceptance.md",
+  "reviewer": null,
+  "approved_at": null,
+  "notes": [
+    "English prompts express intended meaning; they are not ASL word-order instructions or ground truth.",
+    "Existing capture UI uses these E01-E12 IDs; E06 wording and all contexts still require ASL review.",
+    "Online dictionaries may inform research but do not constitute fluent, independent utterance review.",
+    "A selection of complete utterances and confusing/out-of-scope examples is required beyond isolated signs."
+  ],
+  "meanings": [
+    {
+      "id": "E01",
+      "english_meaning_draft": "Hello.",
+      "context_to_review": "greeting",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E02",
+      "english_meaning_draft": "Thank you.",
+      "context_to_review": "acknowledgement",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E03",
+      "english_meaning_draft": "Please.",
+      "context_to_review": "politeness marker; reviewer must define a usable context",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E04",
+      "english_meaning_draft": "Yes.",
+      "context_to_review": "affirmation",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E05",
+      "english_meaning_draft": "No.",
+      "context_to_review": "negation",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E06",
+      "english_meaning_draft": "I need help.",
+      "context_to_review": "request assistance",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E07",
+      "english_meaning_draft": "I understand.",
+      "context_to_review": "confirm comprehension",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E08",
+      "english_meaning_draft": "I do not understand.",
+      "context_to_review": "state lack of comprehension",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E09",
+      "english_meaning_draft": "Please repeat that.",
+      "context_to_review": "request repetition",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E10",
+      "english_meaning_draft": "Please sign more slowly.",
+      "context_to_review": "request slower signing",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E11",
+      "english_meaning_draft": "How are you?",
+      "context_to_review": "question about wellbeing",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    },
+    {
+      "id": "E12",
+      "english_meaning_draft": "I am fine.",
+      "context_to_review": "reply about wellbeing",
+      "asl_reference": null,
+      "review_status": "pending",
+      "accepted_variants": [],
+      "rejected_or_confusing_examples": []
+    }
+  ]
+}

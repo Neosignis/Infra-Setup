@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-18",
+  "device": "cpu",
+  "source": "How2Sign publisher validation split",
+  "clip_id": "-d5dN54tH2E_12-1-rgb_front",
+  "video_bytes": 560001,
+  "frames": 82,
+  "last_pts_ms": 3375,
+  "http_job_completed": true,
+  "translation_stage_reached": true,
+  "disposition": "abstained",
+  "reason": "outside_pilot_scope",
+  "candidate_text": null,
+  "translated_text": null,
+  "confidence": null,
+  "quality_validated": false,
+  "elapsed_s": 61.22,
+  "training_run": false,
+  "real_time_acceptance": false,
+  "actual_browser_webm_smoke": {
+    "network_mocked": false,
+    "camera": "simulated test pattern",
+    "via_user_vite_proxy": true,
+    "disposition": "abstained",
+    "reason": "framing",
+    "elapsed_s": 3.2,
+    "meaning_labels_supplied": false
+  },
+  "note": "Integration/output-policy smoke only. Browser UI tests use controlled outcomes; this record uses the actual local model. No ASL quality or activity-boundary acceptance follows."
+}

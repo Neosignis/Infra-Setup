@@ -1,0 +1,75 @@
+{
+  "review_date": "2026-11-16",
+  "timezone": "Africa/Lagos",
+  "source_document": {
+    "filename": "Neosignis System Architecture and Delivery Plan.md_1",
+    "sha256": "3c97738ebb0a9606fc3562480946cd79249906543091d30b37131ae35fa7e748",
+    "version": "1.0",
+    "document_date": "2026-11-13"
+  },
+  "repository": "https://github.com/Neosignis/Infra-Setup",
+  "audited_branch": "codex/local-camera-workbench",
+  "audited_code_commit": "4b2d33ab271cf3d9fca9b4248dd2dc25e2782b71",
+  "remote_state_checked": {
+    "main_commit": "3dd716e5b864dbef001e57f38e48c0b242122e7f",
+    "pull_request": 1,
+    "draft": true,
+    "merged": false
+  },
+  "local_checks_rerun": {
+    "python_tests": {
+      "passed": 54
+    },
+    "frontend_tests": {
+      "passed": 26
+    },
+    "typescript_build": "passed",
+    "openapi_drift": "passed",
+    "repository_links_json_python": "passed"
+  },
+  "existing_ci": {
+    "url": "https://github.com/Neosignis/Infra-Setup/actions/runs/43724239789",
+    "head_commit": "4b2d33ab271cf3d9fca9b4248dd2dc25e2782b71",
+    "conclusion": "success",
+    "jobs": [
+      "application",
+      "workbench",
+      "terraform"
+    ],
+    "browser_tests": 5,
+    "browser_camera": "simulated",
+    "terraform_mock_tests": 4,
+    "docker_compose": "passed in CI",
+    "postgres_migration_isolation": "passed in CI",
+    "rerun_during_this_document_review": false
+  },
+  "payload_finding": {
+    "fixture": "synthetic shape/byte measurement only; not ASL data",
+    "frames": 300,
+    "points_per_frame": 553,
+    "compact_payload_bytes": 4331796,
+    "middleware_limit_bytes": 4194304,
+    "runtime_fix_applied": false
+  },
+  "not_performed": [
+    "AWS account inventory",
+    "real AWS plan/apply",
+    "new dataset download or training",
+    "ASL linguistic evaluation",
+    "runtime or infrastructure code change",
+    "PR merge or remote settings change",
+    "stopping/restarting the user demo"
+  ],
+  "findings_count": 25,
+  "outputs": [
+    {
+      "path": "docs/neosignis-system-architecture-and-delivery-plan.md",
+      "sha256": "c5193319ed922fa0657bc6b7e5f399787bf21f9c2ffffba6681ec3e5e301cd60"
+    },
+    {
+      "path": "docs/reviews/2026-11-16-architecture-plan-review.md",
+      "sha256": "5099da3629584943f941d6126f247c152f897f2d24eb9b1aad09d2e29affa158"
+    }
+  ],
+  "scope": "Documentation revision and evidence audit. Dataset/research files from 15 November remain local working-tree additions."
+}

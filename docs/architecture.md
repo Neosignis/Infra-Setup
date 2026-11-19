@@ -1,5 +1,7 @@
 # Neosignis system architecture
 
+Current reviewed baseline and implementation status: [System Architecture and Delivery Plan v2.0](neosignis-system-architecture-and-delivery-plan.md), dated 16 November 2026. Diagrams below describe the target; they are not deployment evidence.
+
 The first deliverable is one platform-independent interpretation engine demonstrated through our own camera workbench. The engine recognizes ASL into text, then supports a bounded response-to-sign loop. AWS hosts reproducible environments; platform adapters are added only after the engine is measured.
 
 The design is intentionally a modular API and independently scalable ML workers. It does not split every domain into a network service. Recognition and rendering need different GPU, memory and release characteristics, so they can become separate worker deployments when measurements justify that separation.
@@ -79,7 +81,7 @@ Conversation response generation is optional. The core interpreter translates wh
 
 | Component | Responsibility | Initial deployment | Growth path |
 |---|---|---|---|
-| Camera workbench | capture, framing, text/correction, signer playback | local browser design, implementation pending | React/TypeScript web app; then mobile |
+| Camera workbench | capture, framing, text/correction, signer playback | React/TypeScript local capture/review implemented; extraction/inference/playback pending | model-connected web interpreter; then mobile |
 | API/session modules | identity, policy, routing, contracts, backpressure | FastAPI CPU container | ECS Fargate, 2+ tasks after durable session state |
 | Recognition provider | validated ASL temporal model | no provider supplied | ECS GPU EC2 worker; per-model resource profile |
 | Sign planner | intent/meaning to signing plan | no provider supplied | bounded phrase table, then evaluated language model |

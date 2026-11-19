@@ -1,0 +1,44 @@
+{
+  "schema_version": "neosignis.video-probe.v1",
+  "status": "sampled_decode_checked",
+  "decoder": {
+    "name": "PyAV",
+    "version": "19.0.2"
+  },
+  "archive_sha256": "6cb48170131fdb7fc64d40381a3c4be41112ba4454444170f5a31af2227b6d36",
+  "references_sha256": "f6f0cef01c3f891ca624a45c71eb7f7748b77362d7418c47567a984384f1537c",
+  "source_split": "publisher_validation",
+  "source_video_count": 1739,
+  "sample_method": "shortest and longest reference durations plus deterministic hash sample",
+  "sampled_clips": 32,
+  "fully_decoded_clips": 32,
+  "failed_clips": 0,
+  "sample_dimensions": [
+    "1280x720"
+  ],
+  "sample_fps_metadata": [
+    24.0,
+    30.0,
+    50.0,
+    60.0
+  ],
+  "sample_timestamp_issue_clips": 0,
+  "matched_reference_duration_ms_range": [
+    109.99999999999943,
+    53220.00000000001
+  ],
+  "matched_reference_utterances_over_10_seconds": 240,
+  "all_source_videos_decoded": false,
+  "linguistic_review_completed": false,
+  "training_approved": false,
+  "notes": [
+    "No training, feature extraction, cropping or saved-frame dataset was produced.",
+    "Filename matches and plausible duration do not establish temporal/semantic alignment.",
+    "Decode timing is not interpretation latency or a model benchmark."
+  ],
+  "checked_at": "2026-11-18",
+  "archive_path": "/Users/user/Downloads/val_rgb_front_clips.zip",
+  "report_path": "data/local/how2sign/research-only/val/front/decode-probe.json",
+  "trained_model_installed": false,
+  "unit_tests_passed": 80
+}

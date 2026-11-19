@@ -1,0 +1,59 @@
+{
+  "checked_at": "2026-11-18",
+  "source_id": "how2sign",
+  "publisher_page": "https://how2sign.github.io/",
+  "license": "CC BY-NC 4.0",
+  "complete_dataset_downloaded": false,
+  "training_approved": false,
+  "commercial_permission_obtained": false,
+  "uploaded_to_aws": false,
+  "download_tool": {
+    "name": "gdown",
+    "version": "6.5.1",
+    "installed_in": "temporary tooling directory; project dependencies unchanged",
+    "google_cookies_used": false,
+    "tls_verified": true
+  },
+  "downloaded": [
+    {
+      "file": "how2sign_val.csv",
+      "local_path": "data/local/how2sign/research-only/val/annotations/how2sign_val.csv",
+      "source_url": "https://drive.google.com/file/d/1aBQUClTlZB504JtDISJ0DJlbuYUZCGu3/view",
+      "bytes": 311131,
+      "sha256": "f6f0cef01c3f891ca624a45c71eb7f7748b77362d7418c47567a984384f1537c",
+      "sentence_records": 1741,
+      "format": "tab-separated text; .csv extension",
+      "checks": [
+        "Parsed all rows",
+        "Required sentence/name fields present",
+        "End times greater than start times"
+      ]
+    }
+  ],
+  "unavailable": [
+    {
+      "file": "val_rgb_front_clips.zip",
+      "source_url": "https://drive.google.com/file/d/1DhLH8tIBn9HsTzUJUfsEOGcP4l9EvOiO/view",
+      "status": "google_drive_public_download_quota_exceeded",
+      "downloaded": false
+    },
+    {
+      "file": "val_rgb_side_clips.zip",
+      "source_url": "https://drive.google.com/file/d/1mxL7kJPNUzJ6zoaqJyxF1Krnjo4F-eQG/view",
+      "status": "google_drive_public_download_quota_exceeded",
+      "downloaded": false
+    },
+    {
+      "file": "how2sign_realigned_val.csv",
+      "source_url": "https://drive.google.com/file/d/1Vpag7VPfdTCCJSao8Pz14rlPfekRMggI/view",
+      "status": "public_link_not_retrievable_by_anonymous_download; exact cause unverified",
+      "downloaded": false
+    }
+  ],
+  "media_files_downloaded": 0,
+  "limits": [
+    "References alone are not signed videos and cannot establish a working ASL model.",
+    "Google Drive reported quota exhaustion; no access controls were changed or authenticated cookies extracted.",
+    "These are source-format checks, not an ASL quality audit or permission for commercial training."
+  ]
+}

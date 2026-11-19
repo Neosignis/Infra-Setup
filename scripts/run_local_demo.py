@@ -78,6 +78,8 @@ def main():
     parser.add_argument('--web-port', type=int, default=5173)
     parser.add_argument('--api-port', type=int, default=8000)
     parser.add_argument('--worker-port', type=int, default=8001)
+    parser.add_argument('--with-interpreter', action='store_true', help='Start the experimental local video model service')
+    parser.add_argument('--interpreter-port', type=int, default=8002)
     parser.add_argument('--open', action='store_true', help='Open the workbench in the default browser')
     args = parser.parse_args()
     processes = []
@@ -87,7 +89,7 @@ def main():
             raise KeyboardInterrupt
         signal.signal(signal.SIGTERM, terminate)
     try:
-        check_ports([args.web_port, args.api_port, args.worker_port])
+        check_ports([args.web_port, args.api_port, args.worker_port] + ([args.interpreter_port] if args.with_interpreter else []))
         node, npm = shutil.which('node'), shutil.which('npm')
         if not node or not npm:
             raise RuntimeError('Install Node.js 24, then run npm ci inside apps/workbench')
@@ -106,6 +108,7 @@ def main():
             'DEV_API_TOKEN': secrets.token_urlsafe(32),
             'INFERENCE_URL': f'http://127.0.0.1:{args.worker_port}',
             'NEOSIGNIS_API_PORT': str(args.api_port), 'NEOSIGNIS_WEB_PORT': str(args.web_port),
+            'NEOSIGNIS_EXPERIMENT_PORT': str(args.interpreter_port),
             'PYTHONPATH': str(ROOT / 'src'), 'PYTHONDONTWRITEBYTECODE': '1',
             # A camera demo never enables an ambient/unreviewed provider by accident.
             'ENGINE_PROVIDER': '',
@@ -116,11 +119,14 @@ def main():
                 cwd=ROOT, env=environment, start_new_session=os.name == 'posix',
             ))
             wait_for_http(f'http://127.0.0.1:{port}/healthz', processes)
+        if args.with_interpreter:
+            processes.append(subprocess.Popen([sys.executable, str(ROOT / 'scripts/run_interpreter.py'), '--port', str(args.interpreter_port), '--web-port', str(args.web_port)], cwd=ROOT, env=environment, start_new_session=os.name == 'posix'))
+            wait_for_http(f'http://127.0.0.1:{args.interpreter_port}/healthz', processes)
         processes.append(subprocess.Popen([npm, 'run', 'dev'], cwd=WORKBENCH, env=environment, start_new_session=os.name == 'posix'))
         url = f'http://127.0.0.1:{args.web_port}'
         wait_for_http(url, processes)
         print(f'\nNeosignis camera workbench: {url}', flush=True)
-        print('Local capture only. ASL recognition and signed responses are not installed.\nPress Ctrl+C to stop all three services.\n', flush=True)
+        print(('Experimental buffered ASL suggestions enabled; quality and real-time gates have not passed.' if args.with_interpreter else 'Interpreter UI and Contributor Studio available. Add --with-interpreter to start the experimental model.') + '\nSigned playback is not installed. Press Ctrl+C to stop these local services.\n', flush=True)
         if args.open:
             webbrowser.open(url)
         while all(process.poll() is None for process in processes):

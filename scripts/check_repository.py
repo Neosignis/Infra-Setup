@@ -1,12 +1,19 @@
 """Dependency-free checks for local links and structured reference files."""
 import ast
 import json
+import os
 import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 errors = []
-paths = [p for p in root.rglob('*') if not any(part.startswith('.') or part in {'__pycache__', 'validation-logs', 'node_modules', 'dist', 'build', 'test-results', 'playwright-report'} for part in p.relative_to(root).parts)]
+excluded = {'__pycache__', 'validation-logs', 'node_modules', 'dist', 'build', 'test-results', 'playwright-report'}
+# Prune excluded trees before descending into installed dependencies/caches.
+# Filtering rglob results still traverses every file in those large folders.
+paths = []
+for directory, directories, files in os.walk(root):
+    directories[:] = [name for name in directories if not name.startswith('.') and name not in excluded]
+    paths.extend(Path(directory) / name for name in files if not name.startswith('.') and name not in excluded)
 for path in paths:
     if path.suffix == '.json' or path.name.endswith('.json.example'):
         json.loads(path.read_text())

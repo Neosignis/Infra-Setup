@@ -1,0 +1,32 @@
+{
+  "source_id": "popsign-v1",
+  "dataset": "popsign_v1_0",
+  "category": "game",
+  "split": "val",
+  "sign": "hello",
+  "downloaded_at": "2026-11-18",
+  "source_url": "https://signdata.cc.gatech.edu/data/popsign_v1_0/game/val/hello.tar",
+  "publisher": "Georgia Institute of Technology / Deaf Professional Arts Network",
+  "published_license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "data_card_url": "https://signdata.cc.gatech.edu/view/datasets/popsign_v1_0/",
+  "archive_bytes": 925061120,
+  "archive_sha256": "2e13e83cf380a83fd2a44ed516325dc315623df3c10cd5d9da428d60cb7ee0ae",
+  "files": 157,
+  "download_complete_for_selected_archive": true,
+  "complete_dataset_downloaded": false,
+  "training_approved": false,
+  "rendering_approved": false,
+  "uploaded_to_aws": false,
+  "review_status": "raw_technical_inspection_only",
+  "local_archive": "data/local/popsign_v1_0/game/val/hello.tar",
+  "integrity_report": "data/local/popsign_v1_0/game/val/hello.integrity.json",
+  "checks": {
+    "size_matches_head": true,
+    "tar_members_readable": true,
+    "mp4_files_with_ftyp": 157,
+    "no_unsafe_paths_links_or_duplicates": true,
+    "video_decode_checked": false,
+    "linguistic_review_completed": false
+  }
+}

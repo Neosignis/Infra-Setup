@@ -1,0 +1,5 @@
+expected_account_id = "324793866495"
+region              = "us-east-1"
+monthly_budget_usd  = 25
+# Enter the chosen alert address locally before applying. No alert is created when empty.
+budget_alert_email = ""

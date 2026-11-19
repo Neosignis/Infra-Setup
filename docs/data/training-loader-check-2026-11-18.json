@@ -1,0 +1,39 @@
+{
+  "schema_version": "neosignis.loader-check.v1",
+  "archive_sha256": "6cb48170131fdb7fc64d40381a3c4be41112ba4454444170f5a31af2227b6d36",
+  "references_sha256": "f6f0cef01c3f891ca624a45c71eb7f7748b77362d7418c47567a984384f1537c",
+  "publisher_split": "val",
+  "matched_clips": 1739,
+  "missing_video_rows": 2,
+  "unreferenced_videos": 0,
+  "checked_clips": [
+    {
+      "reference_duration_s": 0.10999999999999943,
+      "decoded_frames": 3,
+      "last_frame_relative_pts_ms": 83.33333333333333,
+      "full_clip_completed": true
+    },
+    {
+      "reference_duration_s": 53.220000000000006,
+      "decoded_frames": 1704,
+      "last_frame_relative_pts_ms": 70958.33333333333,
+      "full_clip_completed": true
+    },
+    {
+      "reference_duration_s": 28.490000000000002,
+      "decoded_frames": 684,
+      "last_frame_relative_pts_ms": 28458.333333333332,
+      "full_clip_completed": true
+    },
+    {
+      "reference_duration_s": 28.36999999999999,
+      "decoded_frames": 681,
+      "last_frame_relative_pts_ms": 28333.333333333332,
+      "full_clip_completed": true
+    }
+  ],
+  "all_clips_decoded": false,
+  "model_features_extracted": false,
+  "training_run": false,
+  "recognition_accuracy_measured": false
+}

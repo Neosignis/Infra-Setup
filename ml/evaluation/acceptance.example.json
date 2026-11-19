@@ -12,6 +12,29 @@
   "deaf_comprehension_min": null,
   "reviewers": [],
   "split_policy": "signer-disjoint; no recording or near-duplicate leakage",
-  "required_error_slices": ["negation", "questions", "names", "numbers", "handedness", "occlusion", "lighting", "camera_orientation", "non_manual_markers"],
-  "release_allowed": false
+  "required_error_slices": [
+    "negation",
+    "questions",
+    "names",
+    "numbers",
+    "handedness",
+    "occlusion",
+    "lighting",
+    "camera_orientation",
+    "non_manual_markers"
+  ],
+  "release_allowed": false,
+  "mvp_definition": "docs/mvp-acceptance.md",
+  "mvp_definition_confirmed_at": "2026-11-18",
+  "required_directions": [
+    "sign_to_text",
+    "text_to_sign"
+  ],
+  "required_device_classes": [
+    "mobile_browser",
+    "desktop_browser"
+  ],
+  "test_context": "live_in_person_conversation",
+  "p95_text_submit_to_sign_start_ms_max": null,
+  "supported_device_browser_versions": []
 }

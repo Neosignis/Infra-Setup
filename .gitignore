@@ -1,4 +1,6 @@
 .venv/
+.venv-data/
+.venv-ml/
 __pycache__/
 *.py[cod]
 .env
@@ -29,6 +31,7 @@ build/
 *.egg-info/
 .DS_Store
 validation-logs/
+/output/
 data/local/
 *.webm
 *.mkv

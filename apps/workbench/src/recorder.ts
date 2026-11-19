@@ -22,13 +22,14 @@ export class RecordingSession {
     private onComplete: (blob: Blob, durationMs: number) => void,
     private onError: (message: string) => void,
     private onTick: (durationMs: number) => void,
+    private limits = { maxDurationMs: MAX_DURATION_MS, maxBytes: MAX_CLIP_BYTES },
   ) {
     const mimeType = supportedMimeType();
     this.recorder = new MediaRecorder(stream, { ...(mimeType ? { mimeType } : {}), videoBitsPerSecond: 2_000_000 });
     this.recorder.ondataavailable = event => {
       if (this.disposed || this.failed || !event.data.size) return;
       this.bytes += event.data.size;
-      if (this.bytes > MAX_CLIP_BYTES) {
+      if (this.bytes > this.limits.maxBytes) {
         this.fail('This clip exceeded the local size limit. Try a shorter recording.');
         return;
       }
@@ -45,8 +46,8 @@ export class RecordingSession {
         this.onError('The recording was empty or too short. Sign for at least a moment, then finish.');
         return;
       }
-      if (durationMs > MAX_DURATION_MS) {
-        this.onError('Recording exceeded 10 seconds. Keep this tab active and try again.');
+      if (durationMs > this.limits.maxDurationMs) {
+        this.onError(`Recording exceeded ${this.limits.maxDurationMs / 1000} seconds. Keep this tab active and try again.`);
         return;
       }
       this.onComplete(blob, durationMs);
@@ -57,11 +58,11 @@ export class RecordingSession {
     this.startedAt = performance.now();
     this.recorder.start(250);
     // Leave a small scheduling margin; never disguise an overlong clip by clamping metadata.
-    this.deadlineTimer = setTimeout(() => this.stop(), MAX_DURATION_MS - 100);
+    this.deadlineTimer = setTimeout(() => this.stop(), this.limits.maxDurationMs - 100);
     this.timer = setInterval(() => {
       const elapsed = performance.now() - this.startedAt;
-      this.onTick(Math.min(elapsed, MAX_DURATION_MS));
-      if (elapsed >= MAX_DURATION_MS) this.stop();
+      this.onTick(Math.min(elapsed, this.limits.maxDurationMs));
+      if (elapsed >= this.limits.maxDurationMs) this.stop();
     }, 100);
   }
 

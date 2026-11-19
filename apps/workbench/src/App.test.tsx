@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import App from './App';
+import App from './ContributorStudio';
 
 beforeEach(() => {
   vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => ({ languages: [
@@ -14,7 +14,7 @@ describe('local camera workbench', () => {
   it('distinguishes API connectivity from a trained recognizer', async () => {
     render(<App />);
     expect(await screen.findByText('Connected')).toBeInTheDocument();
-    expect(screen.getByText('Not installed')).toBeInTheDocument();
+    expect(screen.getByText('Use Interpreter experiment')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Start recording' })).toBeDisabled();
     expect(screen.getByRole('button', { name: /Download session/ })).toBeDisabled();
   });

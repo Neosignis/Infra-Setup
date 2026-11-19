@@ -1,5 +1,7 @@
 # ASL engine options and selection gate
 
+**18 November update:** Uni-Sign How2Sign pose-only SLT is selected as the first research baseline. See the [current decision](recognition-model-decision.md) and [pinned selection record](../ml/recognition-selection.json). It is not downloaded, benchmarked or approved for production. The shortlist below records the initial 13 November assessment.
+
 Research checked against primary project/vendor sources on 13 November 2026. No candidate has been downloaded, benchmarked, licensed for Neosignis or integrated. The architecture keeps model and renderer replaceable because selection must follow data rights and independent evaluation.
 
 | Path | Concrete starting point | What it can establish | Unresolved before adoption |
