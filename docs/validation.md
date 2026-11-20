@@ -1,10 +1,15 @@
 # Validation report
 
-Observed on 13 November 2026. No trained model, avatar or cloud deployment has been tested.
+Updated 15 November 2026. The camera and Python checks below were run for this change. Terraform checks are retained from the 13 November foundation validation; Terraform source is unchanged. No trained model, avatar or cloud deployment has been tested.
 
 | Check | Result | What it establishes |
 |---|---|---|
-| Python unit/in-process API tests | **32 passed** | JWT purpose/client/issuer/expiry/signature checks; local/cloud safety; bounded inputs; timestamp rules; content-free errors; absent models; language/signer/version separation; cancellation/admission behavior |
+| Python unit/in-process API tests | **54 passed** | JWT purpose/client/issuer/expiry/signature checks; local/cloud safety; bounded inputs; timestamp rules; content-free errors; absent models; language/signer/version separation; cancellation/admission behavior |
+| Workbench unit/UI tests | **26 passed** | metadata, export, recorder limits/errors/disposal, capability states and camera permission behavior |
+| Workbench TypeScript/production build | **Passed** | type checking and compiled assets; not hosting |
+| Chromium browser tests | **5 passed** | actual API connection, simulated-camera MediaRecorder/playback/export with Python ZIP validation, denied permission, offline API, narrow-screen overflow, and missing-setup guidance/focus without accidental recording |
+| Launcher teardown | **Passed in browser suite** | graceful SIGTERM shutdown of web, API and worker, without orphaned listeners |
+| Actual hardware camera / Deaf ASL evaluation | **Pending** | simulated-camera tests do not establish real device usability or ASL accuracy |
 | Real loopback gateway → worker HTTP smoke | **Passed** | liveness 200; authenticated capabilities list ASL/NSL as disabled; readiness 503; unauthenticated API 401; temporary processes stopped |
 | Generated OpenAPI drift check | **Passed** | checked-in HTTP schema matches executable gateway |
 | Terraform recursive formatting | **Passed** | canonical HCL formatting |
@@ -19,7 +24,7 @@ Observed on 13 November 2026. No trained model, avatar or cloud deployment has b
 | Git ignore safeguards | **Passed** | `.env`, virtualenv, `.terraform`, state and plan paths are ignored |
 | Docker build / Compose runtime | **Not run locally** | Docker absent; executable checks supplied in CI |
 | PostgreSQL migration / non-owner RLS | **Not run locally** | PostgreSQL absent; real PostgreSQL 16 migration/isolation checks supplied in CI |
-| GitHub Actions run | **Not run** | repository not published/authenticated |
+| Existing foundation GitHub Actions run | **Passed** | [main at 3dd716e](https://github.com/Neosignis/Infra-Setup/actions/runs/43471557522), including application and Terraform jobs; the new workbench job requires its own run |
 | Real AWS plan/apply, credentials, quota, TLS/DNS and GPU runtime | **Not run** | account/region/budget/domain unconfirmed; no resources created |
 | Real ASL recognition / signed response / avatar comprehension | **Not run** | no model, data, signer assets or reviewers supplied |
 
@@ -38,4 +43,16 @@ terraform -chdir=infra/environments/dev test
 
 Terraform 1.14.0 was run from a temporary verified binary because it was not installed globally. Provider validation required permission for a local plugin socket outside the execution sandbox; mocked tests used no AWS APIs. The Python virtualenv reused matching preinstalled framework versions and installed JWT/cryptography/HTTP client dependencies locally. A clean Docker build remains necessary to prove container dependency resolution.
 
-The PostgreSQL and Docker CI steps have been authored but not executed on GitHub. Passing the checks above does not imply those steps will pass until run. API tests use clearly isolated fixtures to validate engineering behavior; they do not measure sign-language accuracy or supply a demo provider.
+The existing main CI run passed its PostgreSQL and Docker steps on GitHub. Those runtimes remain unavailable locally. New workbench CI evidence must be checked on the new commit. API tests use clearly isolated fixtures to validate engineering behavior; they do not measure sign-language accuracy or supply a demo provider.
+
+
+Camera checks:
+
+```sh
+npm --prefix apps/workbench test
+npm --prefix apps/workbench run build
+cd apps/workbench
+npm run test:e2e
+```
+
+Local browser validation used installed Chrome via `PLAYWRIGHT_CHROMIUM_EXECUTABLE`; CI installs Playwright Chromium. The browser archive was consumed by the Python integrity validator. Both the synthetic video and unit fixtures are engineering test inputs, not an ASL corpus. No recordings or provider weights are committed.

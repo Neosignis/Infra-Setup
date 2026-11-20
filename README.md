@@ -6,6 +6,7 @@ This repository contains the system architecture and an executable engineering f
 
 ## Start here
 
+0. [Run the local camera demo](docs/local-demo.md): setup, recording, export and acceptance checks.
 1. [Architecture](docs/architecture.md): boundaries, diagrams, stack, AWS design, scaling and tradeoffs.
 2. [First engine and model strategy](docs/engine.md): recognition, sign generation, realistic avatars, and evidence gates.
 3. [Delivery plan](docs/delivery-plan.md): work packages, ownership and acceptance criteria.
@@ -16,7 +17,7 @@ This repository contains the system architecture and an executable engineering f
 ## Repository
 
 ```text
-apps/workbench/             browser workbench design and implementation contract
+apps/workbench/             React/TypeScript local camera capture and review app
 src/neosignis/              API gateway, worker, typed contracts and provider interfaces
 contracts/                 generated OpenAPI and streaming design
 db/migrations/             PostgreSQL foundation schema
@@ -30,7 +31,20 @@ scripts/                   reproducible checks and OpenAPI export
 docs/                      architecture, security, operations and team delivery
 ```
 
-## Run locally
+## Run the camera workbench (no AWS or Docker)
+
+Use Python 3.12, Node.js 24 and a recent Chrome/Edge browser. From the repository root:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-dev.txt
+npm --prefix apps/workbench ci
+.venv/bin/python scripts/run_local_demo.py
+```
+
+Open `http://127.0.0.1:5173`. The launcher starts the workbench, API and worker on loopback, creates an ephemeral development token, and stops the services on Ctrl+C. It does not use AWS credentials. The camera app records and exports local evaluation clips; **it does not recognize signing or play signed responses yet**. Full setup and review checklist: [local demo guide](docs/local-demo.md).
+
+## Run the API foundation separately
 
 Use Python 3.12. Docker is optional for the Python-only path.
 
@@ -63,7 +77,7 @@ The local token is for the development workbench only. Cloud configuration requi
 
 Read the runbook before applying Terraform. The default development environment creates foundation resources only; API, database, GPU capacity and NAT are opt-in. This is cost containment, not a cost guarantee. No cloud deployment or GitHub repository creation occurs as part of a local test.
 
-GitHub publication requires an authenticated GitHub CLI session and a confirmed owner. Keep this repository private initially: source references describe confidential strategy and contributors' signing data must never be committed.
+The source repository is [Neosignis/Infra-Setup](https://github.com/Neosignis/Infra-Setup). Keep raw recordings, confidential source documents, credentials and contributor identity records out of Git history. Local capture exports are private working files; they do not establish training, distribution or likeness rights.
 
 All rights reserved pending the team's software license decision. Dataset, model, likeness and motion licenses are independent of the source-code license.
 
